@@ -1,0 +1,15 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/styles.css' %}">
+</head>
+<body>
+    <h2>Admin Page</h2>
+    <a href="{% url 'create_user' %}">Create User</a>
+    <a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>

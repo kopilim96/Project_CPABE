@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Doctor Page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/styles.css' %}" />
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+  </head>
+  <body>
+
+    <h1>Welcome, Dr. {{ specialist }}</h1>
+
+    <h2>Patients with the same specialization:</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div>
+            <label for="file">Select a file to upload:</label>
+            <input type="file" name="file" id="file">
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                    <tr>
+                        <td><input type="checkbox" name="patients" value="{{ patient.id }}"></td>
+                        <td>{{ patient.username }}</td>
+                        <td>{{ patient.email }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3">No patients found with the same specialization.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Send File</button>
+    </form>
+    <a href="{% url 'logout' %}">Logout</a>
+  </body>
+</html>
